@@ -17,10 +17,12 @@ class App(ctk.CTk):
         #* DATA
 
         #* WIDGETS
-        ImageImport(self)
+        ImageImport(self, self.import_image)
         #* RUN
         self.mainloop()
 
+    def import_image(self, path):
+        print(path)
 
 
 
