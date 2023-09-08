@@ -5,4 +5,6 @@ import customtkinter as ctk
 class ImageImport(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent)
-        self.pack(expand = True, fill = 'both')
+        self.grid(column = 0, columnspan = 2, row = 0, sticky = 'news')
+
+        ctk.CTkButton(self, text = 'Open Image').place(relx  = .5, rely = .5, anchor = 'center')
