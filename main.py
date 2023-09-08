@@ -1,6 +1,9 @@
 import customtkinter as ctk
 from settings import *
-from image_widgets import ImageImport
+from image_widgets import *
+from tkinter import filedialog
+from PIL import Image
+
 class App(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -17,12 +20,19 @@ class App(ctk.CTk):
         #* DATA
 
         #* WIDGETS
-        ImageImport(self, self.import_image)
+        self.image_import = ImageImport(self, self.import_image)
+
         #* RUN
         self.mainloop()
 
     def import_image(self, path):
-        print(path)
+        self.image = Image.open(path)
+        self.image.show()
+
+
+        #TODO hide the image import widget
+        self.image_import.grid_forget()
+        
 
 
 
