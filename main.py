@@ -2,7 +2,7 @@ import customtkinter as ctk
 from settings import *
 from image_widgets import *
 from tkinter import filedialog
-from PIL import Image
+from PIL import Image, ImageTk
 
 class App(ctk.CTk):
     def __init__(self):
@@ -27,11 +27,18 @@ class App(ctk.CTk):
 
     def import_image(self, path):
         self.image = Image.open(path)
-        self.image.show()
+        self.image_tk = ImageTk.PhotoImage(self.image)
+        # self.image.show()
 
 
-        #TODO hide the image import widget
-        self.image_import.grid_forget()
+        
+        self.image_import.grid_forget() #! hides the open image button
+        
+        self.image_output = ImageOutput(self)
+        self.resize_image()
+
+    def resize_image(self):
+        self.image_output.create_image(0, 0, image = self.image_tk )
         
 
 

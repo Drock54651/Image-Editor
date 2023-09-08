@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter import filedialog, Canvas
-
+from settings import *
 #TODO cover entire window, contain button in middle, button says open image
 class ImageImport(ctk.CTkFrame):
     def __init__(self, parent, import_image_func):
@@ -21,5 +21,5 @@ class ImageImport(ctk.CTkFrame):
 
 class ImageOutput(Canvas):
     def __init__(self, parent):
-        super().__init__(parent, background= 'red')
+        super().__init__(parent, background = BACKGROUND_COLOR , bd = 0, highlightthickness = 0, relief = 'ridge')
         self.grid(row = 0, column = 1, sticky = 'news')
