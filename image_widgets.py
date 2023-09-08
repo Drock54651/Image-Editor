@@ -10,16 +10,16 @@ class ImageImport(ctk.CTkFrame):
         ctk.CTkButton(self, text = 'Open Image', command = self.open_dialog).place(relx  = .5, rely = .5, anchor = 'center')
 
 
-    def open_dialog(self):
+    def open_dialog(self): #! gets file path to image on user's PC
         path = filedialog.askopenfile().name
         
-        self.import_image_func(path)
+        self.import_image_func(path) #! calls import_image func in main 
 
         # path = filedialog.askopenfile().name
         # print(path)
 
 
-class ImageOutput(Canvas):
+class ImageOutput(Canvas): #! where the image will be on
     def __init__(self, parent):
         super().__init__(parent, background = BACKGROUND_COLOR , bd = 0, highlightthickness = 0, relief = 'ridge')
         self.grid(row = 0, column = 1, sticky = 'news')

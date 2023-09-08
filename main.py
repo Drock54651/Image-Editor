@@ -27,7 +27,7 @@ class App(ctk.CTk):
 
     def import_image(self, path):
         self.image = Image.open(path)
-        self.image_tk = ImageTk.PhotoImage(self.image)
+        self.image_tk = ImageTk.PhotoImage(self.image) #! image must be converted to tk for use on tk widgets
         # self.image.show()
 
 
