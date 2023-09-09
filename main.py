@@ -41,7 +41,7 @@ class App(ctk.CTk):
         #TODO: recreate the import button
         self.image_output.grid_forget()
         self.close_button.place_forget()
-        ImageImport(self, self.image_import)
+        self.image_import = ImageImport(self, self.image_import)
 
     def resize_image(self, event): #! called in image_widgets -> ImageOutput
 
