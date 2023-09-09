@@ -28,17 +28,26 @@ class App(ctk.CTk):
     def import_image(self, path):
         self.image = Image.open(path)
         self.image_tk = ImageTk.PhotoImage(self.image) #! image must be converted to tk for use on tk widgets
+        self.image_ratio = self.image.size[0] / self.image.size[1] #! w / h
+
         # self.image.show()
+        
 
 
         
         self.image_import.grid_forget() #! hides the open image button
         
-        self.image_output = ImageOutput(self)
-        self.resize_image()
+        self.image_output = ImageOutput(self, self.resize_image)
+        
 
-    def resize_image(self):
-        self.image_output.create_image(0, 0, image = self.image_tk )
+    def resize_image(self, event):
+
+        #* RESIZE
+
+
+        #* PLACE IMAGE
+        self.image_output.delete('all')
+        self.image_output.create_image(event.width / 2, event.height / 2, image = self.image_tk )
         
 
 
