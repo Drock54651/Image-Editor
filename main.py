@@ -40,13 +40,25 @@ class App(ctk.CTk):
         self.image_output = ImageOutput(self, self.resize_image)
         
 
-    def resize_image(self, event):
+    def resize_image(self, event): #! called in image_widgets -> ImageOutput
+
+        #* CURRENT CANVAS RATIO
+        canvas_ratio = event.width / event.height
 
         #* RESIZE
+        if canvas_ratio > self.image_ratio: #! canvas is wider than image
+            image_height = int(event.height)
+            image_width = int(image_height * self.image_ratio)
+
+        else: #! canvas is taller than the image
+            image_width = int(event.width)
+            image_height = int(event.width / self.image_ratio)
 
 
         #* PLACE IMAGE
         self.image_output.delete('all')
+        resized_image = self.image.resize((image_width, image_height))
+        self.image_tk = ImageTk.PhotoImage(resized_image)
         self.image_output.create_image(event.width / 2, event.height / 2, image = self.image_tk )
         
 
