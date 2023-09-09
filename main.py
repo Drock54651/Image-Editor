@@ -30,11 +30,7 @@ class App(ctk.CTk):
         self.image_tk = ImageTk.PhotoImage(self.image) #! image must be converted to tk for use on tk widgets
         self.image_ratio = self.image.size[0] / self.image.size[1] #! w / h
 
-        # self.image.show()
-        
-
-
-        
+    
         self.image_import.grid_forget() #! hides the open image button
         
         self.image_output = ImageOutput(self, self.resize_image)
@@ -42,8 +38,10 @@ class App(ctk.CTk):
     
     def close_edit(self):
         #TODO: hide image and close the button
+        #TODO: recreate the import button
         self.image_output.grid_forget()
         self.close_button.place_forget()
+        ImageImport(self, self.image_import)
 
     def resize_image(self, event): #! called in image_widgets -> ImageOutput
 
