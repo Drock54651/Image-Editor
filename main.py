@@ -38,7 +38,12 @@ class App(ctk.CTk):
         self.image_import.grid_forget() #! hides the open image button
         
         self.image_output = ImageOutput(self, self.resize_image)
-        
+        self.close_button = CloseOutput(self, self.close_edit)
+    
+    def close_edit(self):
+        #TODO: hide image and close the button
+        self.image_output.grid_forget()
+        self.close_button.place_forget()
 
     def resize_image(self, event): #! called in image_widgets -> ImageOutput
 

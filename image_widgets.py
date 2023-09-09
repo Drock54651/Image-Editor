@@ -24,3 +24,17 @@ class ImageOutput(Canvas): #! where the image will be on
         super().__init__(parent, background = BACKGROUND_COLOR , bd = 0, highlightthickness = 0, relief = 'ridge')
         self.grid(row = 0, column = 1, sticky = 'news')
         self.bind('<Configure>', resize_image)
+
+class CloseOutput(ctk.CTkButton):
+    def __init__(self, parent, close_edit_func):
+        super().__init__(parent, 
+                         text  = 'x', 
+                         text_color = WHITE, 
+                         fg_color = 'transparent', 
+                         width = 40, 
+                         height = 40,
+                         corner_radius = 0,
+                         hover_color = CLOSE_RED,
+                         command = close_edit_func)
+        
+        self.place(relx = .99, rely = .01, anchor = 'ne')
