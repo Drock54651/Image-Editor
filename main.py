@@ -17,7 +17,7 @@ class App(ctk.CTk):
         self.columnconfigure(0, weight = 2, uniform = 'a')
         self.columnconfigure(1, weight = 6, uniform = 'a')
 
-        #* DATA
+        #* DATAn
 
         #* WIDGETS
         self.image_import = ImageImport(self, self.import_image)

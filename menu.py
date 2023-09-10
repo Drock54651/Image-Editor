@@ -6,7 +6,7 @@ class Menu(ctk.CTkTabview):
     def __init__(self, parent):
         super().__init__(parent)
 
-        self.grid(row = 0 , column = 0, sticky = 'news')
+        self.grid(row = 0 , column = 0, sticky = 'news', pady = 10, padx = 10)
 
         #* TABS
         self.add('Position')
