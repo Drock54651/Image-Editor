@@ -34,14 +34,14 @@ class App(ctk.CTk):
         self.mainloop()
 
 
-    def init_parameters(self):
+    def init_parameters(self): #! the variables for rotate and zoom
         self.rotate_float = ctk.DoubleVar(value = ROTATE_DEFAULT)
         self.rotate_float.trace('w', self.manipulate_image)
 
         self.zoom_float = ctk.DoubleVar(value = ZOOM_DEFAULT)
         self.zoom_float.trace('w', self.manipulate_image)
 
-    def manipulate_image(self, *args):
+    def manipulate_image(self, *args): #! manipulation changes for the menu panel
         self.image = self.original
 
         #* ROTATE
@@ -52,7 +52,7 @@ class App(ctk.CTk):
 
         self.place_image()
 
-    def import_image(self, path):
+    def import_image(self, path): #! imports image, get ratios, and calls the Menu class
         self.original = Image.open(path)
         self.image = self.original #! this is the image that will be manipulated, original will be used to revert
         self.image_tk = ImageTk.PhotoImage(self.image) #! image must be converted to tk for use on tk widgets
@@ -66,7 +66,7 @@ class App(ctk.CTk):
 
         self.menu = Menu(self, self.rotate_float, self.zoom_float) #! left side menu
     
-    def close_edit(self):
+    def close_edit(self): 
         #TODO: hide image and close the button
         #TODO: recreate the import button
         self.image_output.grid_forget()
@@ -94,7 +94,7 @@ class App(ctk.CTk):
 
         self.place_image()
 
-    def place_image(self):
+    def place_image(self): #! places newly manipulated or resized image
 
         #* PLACE IMAGE
         self.image_output.delete('all')
