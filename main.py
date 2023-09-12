@@ -71,6 +71,17 @@ class App(ctk.CTk):
         #* ZOOM
         self.image = ImageOps.crop(image = self.image, border = self.pos_vars['zoom'].get())
 
+        #* FLIP
+        if self.pos_vars['flip'].get() == 'X':
+            self.image = ImageOps.mirror(self.image)
+
+        if self.pos_vars['flip'].get() == 'Y':
+            pass
+        
+        if self.pos_vars['flip'].get() == 'Both':
+            pass
+        
+
         self.place_image()
 
     def import_image(self, path): #! imports image, get ratios, and calls the Menu class
