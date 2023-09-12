@@ -34,7 +34,7 @@ class App(ctk.CTk):
         self.mainloop()
 
 
-    def init_parameters(self): #! the variables for rotate, zoom, and other effects
+    def init_parameters(self): #! the variables / datatypes for rotate, zoom, and other effects
         self.pos_vars = {
             'rotate': ctk.DoubleVar(value = ROTATE_DEFAULT),
             'zoom': ctk.DoubleVar(value = ZOOM_DEFAULT),
@@ -52,7 +52,7 @@ class App(ctk.CTk):
         self.effect_vars = {
             'blur': ctk.DoubleVar(value = BLUR_DEFAULT),
             'contrast': ctk.IntVar(value = CONTRAST_DEFAULT),
-            'effect': ctk.StringVar(value = EFFECT_OPTIONS[0])
+            'effect': ctk.StringVar(value = 'Effects')
         }
 
         #* TRACING
