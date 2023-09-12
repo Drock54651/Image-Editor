@@ -31,6 +31,11 @@ class SliderPanel(Panel):
         self.num_label.grid(row = 0, column = 1, sticky = 'e', padx = 5 )
 
     def update_text(self, value): #! updates values from the slider
-        self.num_label.configure(text = f'{round(value,2)}')
+        self.num_label.configure(text = f'{round(value,2):.2f}')
 
+class SegmentedPanel(Panel):
+    def __init__(self, parent, text, data_var, options):
+        super().__init__(parent)
 
+        ctk.CTkLabel(self, text = text).pack()
+        ctk.CTkSegmentedButton(self, values = options).pack(expand = True, fill = 'both', padx = 4, pady = 4)
