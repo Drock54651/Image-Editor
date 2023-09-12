@@ -93,6 +93,11 @@ class App(ctk.CTk):
         if self.color_vars['grayscale'].get(): #! this is bool
             self.image = ImageOps.grayscale(self.image)
 
+        if self.color_vars['invert'].get(): #! this is bool
+            self.image = self.image.convert('L') #note: needed to convert to L mode for invert to work idk why
+            self.image = ImageOps.invert(self.image)
+            # self.image = self.image.convert('1')
+
 
         
 
