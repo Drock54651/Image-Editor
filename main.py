@@ -56,9 +56,10 @@ class App(ctk.CTk):
         }
 
         #* TRACING
-
+        
         #TODO: apply trace to all variables using a single for loop
-        for var in list(self.pos_vars.values()) + list(self.color_vars.values()) + list(self.effect_vars.values()):
+        combined_vars = list(self.pos_vars.values()) + list(self.color_vars.values()) + list(self.effect_vars.values()) #! converting dictionaries into lists and concating the lists into 1
+        for var in combined_vars:
             var.trace('w', self.manipulate_image)        
 
     def manipulate_image(self, *args): #! manipulation changes for the menu panel
@@ -84,7 +85,7 @@ class App(ctk.CTk):
         self.image_output = ImageOutput(self, self.resize_image) #! actually shows the image on canvas
         self.close_button = CloseOutput(self, self.close_edit)
 
-        self.menu = Menu(self, self.pos_vars) #! left side menu
+        self.menu = Menu(self, self.pos_vars, self.color_vars, self.effect_vars) #! left side menu
     
     def close_edit(self): #! closes everything and adds option to import image again
         #TODO: hide image and close the button
