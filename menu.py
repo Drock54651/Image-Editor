@@ -43,5 +43,5 @@ class EffectFrame(ctk.CTkFrame):
             self.pack(expand = True, fill = 'both')
 
             DropDownPanel(self, effect_vars['effect'], EFFECT_OPTIONS)
-            SliderPanel(self, text = 'Blur', data_var = effect_vars['blur'], min_value = 0, max_value = 3 )
+            SliderPanel(self, text = 'Blur', data_var = effect_vars['blur'], min_value = 0, max_value = 30 )
             SliderPanel(self, text = 'Contrast', data_var = effect_vars['contrast'], min_value = 0, max_value = 10 )

@@ -2,7 +2,7 @@ import customtkinter as ctk
 from settings import *
 from image_widgets import *
 from tkinter import filedialog
-from PIL import Image, ImageTk, ImageOps, ImageEnhance
+from PIL import Image, ImageTk, ImageOps, ImageEnhance, ImageFilter
 from menu import Menu
 
 
@@ -66,28 +66,33 @@ class App(ctk.CTk):
         self.image = self.original
 
         #* ROTATE
-        self.image = self.image.rotate(self.pos_vars['rotate'].get())
+        if self.pos_vars['rotate'].get() != ROTATE_DEFAULT:
+            self.image = self.image.rotate(self.pos_vars['rotate'].get())
 
         #* ZOOM
-        self.image = ImageOps.crop(image = self.image, border = self.pos_vars['zoom'].get())
+        if self.pos_vars['zoom'].get() != ROTATE_DEFAULT:
+            self.image = ImageOps.crop(image = self.image, border = self.pos_vars['zoom'].get())
 
         #* FLIP
-        if self.pos_vars['flip'].get() == 'X':
-            self.image = ImageOps.mirror(self.image)
+        if self.pos_vars['flip'].get() != FLIP_OPTIONS[0]:
+            if self.pos_vars['flip'].get() == 'X':
+                self.image = ImageOps.mirror(self.image)
 
-        if self.pos_vars['flip'].get() == 'Y':
-            self.image = ImageOps.flip(self.image)
-        
-        if self.pos_vars['flip'].get() == 'Both':
-            self.image = ImageOps.mirror(self.image)
-            self.image = ImageOps.flip(self.image)
+            if self.pos_vars['flip'].get() == 'Y':
+                self.image = ImageOps.flip(self.image)
+            
+            if self.pos_vars['flip'].get() == 'Both':
+                self.image = ImageOps.mirror(self.image)
+                self.image = ImageOps.flip(self.image)
 
         #* BRIGHTNESS AND VIBRANCE
-        brightness_enhancer = ImageEnhance.Brightness(self.image)
-        self.image = brightness_enhancer.enhance(self.color_vars['brightness'].get())
+        if self.color_vars['brightness'].get() != BRIGHTNESS_DEFAULT:
+            brightness_enhancer = ImageEnhance.Brightness(self.image)
+            self.image = brightness_enhancer.enhance(self.color_vars['brightness'].get())
 
-        vibrance_enhancer = ImageEnhance.Color(self.image)
-        self.image = vibrance_enhancer.enhance(self.color_vars['vibrance'].get())
+        if self.color_vars['vibrance'].get() != VIBRANCE_DEFAULT:
+            vibrance_enhancer = ImageEnhance.Color(self.image)
+            self.image = vibrance_enhancer.enhance(self.color_vars['vibrance'].get())
 
         #* GRAYSCALE AND INVERT
         if self.color_vars['grayscale'].get(): #! this is bool
@@ -97,6 +102,20 @@ class App(ctk.CTk):
             self.image = self.image.convert('L') #note: needed to convert to L mode for invert to work idk why
             self.image = ImageOps.invert(self.image)
             # self.image = self.image.convert('1')
+
+        #* BLURE AND CONTRAST
+        if self.effect_vars['blur'].get() != BLUR_DEFAULT:
+            self.image = self.image.filter(ImageFilter.GaussianBlur(self.effect_vars['blur'].get()))
+
+        if self.effect_vars['contrast'].get() != CONTRAST_DEFAULT:
+            self.image = self.image.filter(ImageFilter.UnsharpMask(self.effect_vars['contrast'].get()))
+            
+        match self.effect_vars['effect'].get():
+            case 'Emboss': self.image = self.image.filter(ImageFilter.EMBOSS)
+            case 'Find edges': self.image = self.image.filter(ImageFilter.FIND_EDGES) #NOTE: BROKEN AND IDK HOW TO FIX
+            case 'Contour': self.image = self.image.filter(ImageFilter.CONTOUR)
+            case 'Edge enhance': self.image = self.image.filter(ImageFilter.EDGE_ENHANCE_MORE)
+
 
 
         
