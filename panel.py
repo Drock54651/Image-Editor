@@ -38,4 +38,12 @@ class SegmentedPanel(Panel):
         super().__init__(parent)
 
         ctk.CTkLabel(self, text = text).pack()
-        ctk.CTkSegmentedButton(self, values = options).pack(expand = True, fill = 'both', padx = 4, pady = 4)
+        ctk.CTkSegmentedButton(self, variable = data_var, values = options).pack(expand = True, fill = 'both', padx = 4, pady = 4)
+
+class SwitchPanel(Panel):
+    def __init__(self, parent, *args): #! args is ((var, text), (var, text), (var, text))
+        super().__init__(parent)
+
+        for var, text in args:
+            switch = ctk.CTkSwitch(self, text = text, variable = var, button_color = BLUE, fg_color = SLIDER_BG)
+            switch.pack(side = 'left', expand = True, fill = 'both', padx = 5, pady = 5)

@@ -33,6 +33,7 @@ class ColorFrame(ctk.CTkFrame):
     def __init__(self, parent, color_vars):
         super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
+        SwitchPanel(self, (color_vars['grayscale'], 'B/W'), (color_vars['invert'], 'Invert'))
         SliderPanel(self, text = 'Brightness', data_var = color_vars['brightness'], min_value = 0, max_value = 5)
         SliderPanel(self, text = 'Vibrance', data_var = color_vars['vibrance'], min_value = 0, max_value = 5 )
 
