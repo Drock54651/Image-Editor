@@ -2,7 +2,7 @@ import customtkinter as ctk
 from settings import *
 from image_widgets import *
 from tkinter import filedialog
-from PIL import Image, ImageTk, ImageOps
+from PIL import Image, ImageTk, ImageOps, ImageEnhance
 from menu import Menu
 
 
@@ -76,10 +76,24 @@ class App(ctk.CTk):
             self.image = ImageOps.mirror(self.image)
 
         if self.pos_vars['flip'].get() == 'Y':
-            pass
+            self.image = ImageOps.flip(self.image)
         
         if self.pos_vars['flip'].get() == 'Both':
-            pass
+            self.image = ImageOps.mirror(self.image)
+            self.image = ImageOps.flip(self.image)
+
+        #* BRIGHTNESS AND VIBRANCE
+        brightness_enhancer = ImageEnhance.Brightness(self.image)
+        self.image = brightness_enhancer.enhance(self.color_vars['brightness'].get())
+
+        vibrance_enhancer = ImageEnhance.Color(self.image)
+        self.image = vibrance_enhancer.enhance(self.color_vars['vibrance'].get())
+
+        #* GRAYSCALE AND INVERT
+        if self.color_vars['grayscale'].get(): #! this is bool
+            self.image = ImageOps.grayscale(self.image)
+
+
         
 
         self.place_image()
