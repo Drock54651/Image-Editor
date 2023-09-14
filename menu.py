@@ -70,6 +70,7 @@ class ExportFrame(ctk.CTkFrame):
             #* DATA
             self.name_string = ctk.StringVar()
             self.file_string = ctk.StringVar(value = 'jpg')
-
+            self.path_string = ctk.StringVar()
             #* WIDGETS 
             FileNamePanel(self, self.name_string, self.file_string)
+            FilePathPanel(self, self.path_string)

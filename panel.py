@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from settings import *
-
+from tkinter import filedialog
 class Panel(ctk.CTkFrame):
     def __init__(self, parent):
         super().__init__(parent, fg_color = DARK_GREY)
@@ -92,6 +92,16 @@ class FileNamePanel(Panel):
             text = self.name_string.get().replace(' ', '_') + '.' + self.file_string.get() #! replaces the white space with _ so if file name is "pic 1" -> "pic_1"
             self.output.configure(text = text)
 
+class FilePathPanel(Panel):
+    def __init__(self, parent, path_string):
+        super().__init__(parent)
+        self.path_string = path_string
+        ctk.CTkButton(self, text = 'Export Image To...', command = self.open_file).pack(pady = 10)
+        ctk.CTkEntry(self, textvariable = path_string).pack( fill = 'x', pady = 10)
+
+    def open_file(self):
+        path = filedialog.askdirectory()
+        self.path_string.set(path)
 
 class RevertButton(ctk.CTkButton): #! reverts values to 0
     def __init__(self, parent, *args):
