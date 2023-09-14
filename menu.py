@@ -21,7 +21,7 @@ class Menu(ctk.CTkTabview): #! contains the tabs
         ExportFrame(self.tab('Export'), export_image)
         
 
-class PositionFrame(ctk.CTkFrame):
+class PositionFrame(ctk.CTkFrame): #! unique to position tab
     def __init__(self, parent, pos_vars):
         super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
@@ -34,7 +34,7 @@ class PositionFrame(ctk.CTkFrame):
                      (pos_vars['flip'], FLIP_OPTIONS[0]),
                      (pos_vars['zoom'], ZOOM_DEFAULT))
 
-class ColorFrame(ctk.CTkFrame):
+class ColorFrame(ctk.CTkFrame): #!unique to color tab
     def __init__(self, parent, color_vars):
         super().__init__(parent, fg_color = 'transparent')
         self.pack(expand = True, fill = 'both')
@@ -48,7 +48,7 @@ class ColorFrame(ctk.CTkFrame):
                      (color_vars['invert'], INVERT_DEFAULT),
                      (color_vars['vibrance'], VIBRANCE_DEFAULT))
 
-class EffectFrame(ctk.CTkFrame):
+class EffectFrame(ctk.CTkFrame): #! unique to Effect Tab
         def __init__(self, parent, effect_vars):
             super().__init__(parent, fg_color = 'transparent')
             self.pack(expand = True, fill = 'both')
@@ -62,7 +62,7 @@ class EffectFrame(ctk.CTkFrame):
                      (effect_vars['contrast'], CONTRAST_DEFAULT),
                      (effect_vars['effect'], EFFECT_OPTIONS[0]))
 
-class ExportFrame(ctk.CTkFrame):
+class ExportFrame(ctk.CTkFrame): #! unique to Export tab
     def __init__(self, parent, export_image):
             super().__init__(parent, fg_color = 'transparent')
             self.pack(expand = True, fill = 'both')
