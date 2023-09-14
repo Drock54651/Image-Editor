@@ -65,8 +65,12 @@ class FileNamePanel(Panel):
     def __init__(self, parent, name_string, file_string):
         super().__init__(parent)
 
-        self.name_string= name_string
+        #* DATA
+        self.name_string = name_string
+        self.name_string.trace('w', self.update_text)
         self.file_string = file_string
+
+        #* CHECK BOXES FOR FILE FORMAT
         ctk.CTkEntry(self, textvariable = self.name_string).pack(fill = 'x', padx = 20, pady = 5)
         frame = ctk.CTkFrame(self, fg_color = 'transparent')
         frame.pack(expand = True, fill = 'both', padx = 20)
@@ -75,8 +79,14 @@ class FileNamePanel(Panel):
         png_check = ctk.CTkCheckBox(frame, text = 'png')
         png_check.pack(side = 'left', fill = 'x', expand = True)
 
-        self.output = ctk.CTkLabel(self, textvariable = self.name_string)
+        #* PREVIEW TEXT
+        self.output = ctk.CTkLabel(self, text = '')
         self.output.pack()
+
+    def update_text(self, *args):
+        if self.name_string.get():
+            text = self.name_string.get().replace(' ', '_') #! replaces the white space with _ so if file name is "pic 1" -> "pic_1"
+            self.output.configure(text = text)
 
 
 class RevertButton(ctk.CTkButton): #! reverts values to 0
