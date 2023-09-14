@@ -16,22 +16,23 @@ class SliderPanel(Panel):
         #* LAYOUT
         self.rowconfigure((0,1 ), weight = 1, uniform = 'a')
         self.columnconfigure((0,1), weight = 1, uniform = 'a')
+        self.data_var = data_var
+        self.data_var.trace('w', self.update_text)
 
         #* WIDGETS
         ctk.CTkLabel(self, text = text).grid( row  = 0, column = 0, sticky = 'w', padx = 5)
 
         ctk.CTkSlider(self,
                       fg_color = SLIDER_BG, 
-                      command = self.update_text,
                       from_ = min_value, 
                       to = max_value, 
-                      variable = data_var).grid( row = 1, column = 0, columnspan = 2, sticky = 'we', padx = 5, pady = 5)
+                      variable = self.data_var).grid( row = 1, column = 0, columnspan = 2, sticky = 'we', padx = 5, pady = 5)
         
         self.num_label = ctk.CTkLabel(self, text = data_var.get())
         self.num_label.grid(row = 0, column = 1, sticky = 'e', padx = 5 )
 
-    def update_text(self, value): #! updates values from the slider
-        self.num_label.configure(text = f'{round(value,2):.2f}')
+    def update_text(self, *args): #! updates values from the slider
+        self.num_label.configure(text = f'{round(self.data_var.get(),2):.2f}')
 
 class SegmentedPanel(Panel):
     def __init__(self, parent, text, data_var, options):

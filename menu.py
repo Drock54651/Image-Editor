@@ -18,7 +18,7 @@ class Menu(ctk.CTkTabview):
         PositionFrame(self.tab('Position'), pos_vars,) #! attaches the frame to the position tab when clicked on
         ColorFrame(self.tab('Color'), color_vars) #! attaches the frame to the position tab when clicked 
         EffectFrame(self.tab('Effect'), effect_vars)
-
+        
 
 class PositionFrame(ctk.CTkFrame):
     def __init__(self, parent, pos_vars):
@@ -28,6 +28,10 @@ class PositionFrame(ctk.CTkFrame):
         SliderPanel(self, text = 'Rotation', data_var = pos_vars['rotate'], min_value = 0, max_value = 360)
         SliderPanel(self, text = 'Zoom', data_var = pos_vars['zoom'], min_value = 0, max_value = 200 )
         SegmentedPanel(self, 'Invert', pos_vars['flip'], FLIP_OPTIONS)
+        RevertButton(self, 
+                     (pos_vars['rotate'], ROTATE_DEFAULT),
+                     (pos_vars['flip'], FLIP_OPTIONS[0]),
+                     (pos_vars['zoom'], ZOOM_DEFAULT))
 
 class ColorFrame(ctk.CTkFrame):
     def __init__(self, parent, color_vars):
@@ -37,6 +41,12 @@ class ColorFrame(ctk.CTkFrame):
         SliderPanel(self, text = 'Brightness', data_var = color_vars['brightness'], min_value = 0, max_value = 5)
         SliderPanel(self, text = 'Vibrance', data_var = color_vars['vibrance'], min_value = 0, max_value = 5 )
 
+        RevertButton(self, 
+                     (color_vars['brightness'], VIBRANCE_DEFAULT),
+                     (color_vars['grayscale'], GRAYSCALE_DEFAULT),
+                     (color_vars['invert'], INVERT_DEFAULT),
+                     (color_vars['vibrance'], VIBRANCE_DEFAULT))
+
 class EffectFrame(ctk.CTkFrame):
         def __init__(self, parent, effect_vars):
             super().__init__(parent, fg_color = 'transparent')
@@ -45,3 +55,19 @@ class EffectFrame(ctk.CTkFrame):
             DropDownPanel(self, effect_vars['effect'], EFFECT_OPTIONS)
             SliderPanel(self, text = 'Blur', data_var = effect_vars['blur'], min_value = 0, max_value = 30 )
             SliderPanel(self, text = 'Contrast', data_var = effect_vars['contrast'], min_value = 0, max_value = 10 )
+
+            RevertButton(self, 
+                     (effect_vars['blur'], BLUR_DEFAULT),
+                     (effect_vars['contrast'], CONTRAST_DEFAULT),
+                     (effect_vars['effect'], EFFECT_OPTIONS[0]))
+
+
+class RevertButton(ctk.CTkButton): #! reverts values to 0
+    def __init__(self, parent, *args):
+        super().__init__(parent, text = 'Revert', command = self.reset)
+        self.pack(side = 'bottom', pady = 10)
+        self.args = args
+
+    def reset(self):
+        for vars, value in self.args:
+            vars.set(value)
