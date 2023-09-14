@@ -74,18 +74,22 @@ class FileNamePanel(Panel):
         ctk.CTkEntry(self, textvariable = self.name_string).pack(fill = 'x', padx = 20, pady = 5)
         frame = ctk.CTkFrame(self, fg_color = 'transparent')
         frame.pack(expand = True, fill = 'both', padx = 20)
-        jpg_check = ctk.CTkCheckBox(frame, text = 'jpg')
+        jpg_check = ctk.CTkCheckBox(frame, text = 'jpg', variable = self.file_string, command = lambda: self.click('jpg') , onvalue = 'jpg', offvalue = 'png' ) #! file_string value determines onvalue or offvalue
+        png_check = ctk.CTkCheckBox(frame, text = 'png', variable = self.file_string, command = lambda: self.click('png') , onvalue = 'png', offvalue = 'jpg' )
         jpg_check.pack(side = 'left', fill = 'x', expand = True)
-        png_check = ctk.CTkCheckBox(frame, text = 'png')
         png_check.pack(side = 'left', fill = 'x', expand = True)
 
         #* PREVIEW TEXT
         self.output = ctk.CTkLabel(self, text = '')
         self.output.pack()
 
+    def click(self, value):
+        self.file_string.set(value)
+        self.update_text()
+
     def update_text(self, *args):
         if self.name_string.get():
-            text = self.name_string.get().replace(' ', '_') #! replaces the white space with _ so if file name is "pic 1" -> "pic_1"
+            text = self.name_string.get().replace(' ', '_') + '.' + self.file_string.get() #! replaces the white space with _ so if file name is "pic 1" -> "pic_1"
             self.output.configure(text = text)
 
 
