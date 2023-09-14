@@ -68,6 +68,15 @@ class FileNamePanel(Panel):
         self.name_string= name_string
         self.file_string = file_string
         ctk.CTkEntry(self, textvariable = self.name_string).pack(fill = 'x', padx = 20, pady = 5)
+        frame = ctk.CTkFrame(self, fg_color = 'transparent')
+        frame.pack(expand = True, fill = 'both', padx = 20)
+        jpg_check = ctk.CTkCheckBox(frame, text = 'jpg')
+        jpg_check.pack(side = 'left', fill = 'x', expand = True)
+        png_check = ctk.CTkCheckBox(frame, text = 'png')
+        png_check.pack(side = 'left', fill = 'x', expand = True)
+
+        self.output = ctk.CTkLabel(self, textvariable = self.name_string)
+        self.output.pack()
 
 
 class RevertButton(ctk.CTkButton): #! reverts values to 0
