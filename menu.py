@@ -2,7 +2,7 @@ import customtkinter as ctk
 from panel import *
 
 
-class Menu(ctk.CTkTabview):
+class Menu(ctk.CTkTabview): #! contains the tabs
     def __init__(self, parent, pos_vars, color_vars, effect_vars):
         super().__init__(parent)
 
@@ -74,3 +74,13 @@ class ExportFrame(ctk.CTkFrame):
             #* WIDGETS 
             FileNamePanel(self, self.name_string, self.file_string)
             FilePathPanel(self, self.path_string)
+
+class RevertButton(ctk.CTkButton): #! reverts values to 0
+    def __init__(self, parent, *args):
+        super().__init__(parent, text = 'Revert', command = self.reset)
+        self.pack(side = 'bottom', pady = 10)
+        self.args = args
+
+    def reset(self):
+        for vars, value in self.args:
+            vars.set(value)

@@ -96,19 +96,10 @@ class FilePathPanel(Panel):
     def __init__(self, parent, path_string):
         super().__init__(parent)
         self.path_string = path_string
-        ctk.CTkButton(self, text = 'Export Image To...', command = self.open_file).pack(pady = 10)
+        ctk.CTkButton(self, text = 'Export Image To...', command = self.open_file_dialog).pack(pady = 10)
         ctk.CTkEntry(self, textvariable = path_string).pack( fill = 'x', pady = 10)
 
-    def open_file(self):
+    def open_file_dialog(self):
         path = filedialog.askdirectory()
         self.path_string.set(path)
 
-class RevertButton(ctk.CTkButton): #! reverts values to 0
-    def __init__(self, parent, *args):
-        super().__init__(parent, text = 'Revert', command = self.reset)
-        self.pack(side = 'bottom', pady = 10)
-        self.args = args
-
-    def reset(self):
-        for vars, value in self.args:
-            vars.set(value)
