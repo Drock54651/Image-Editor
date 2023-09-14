@@ -49,7 +49,7 @@ class SwitchPanel(Panel):
             switch = ctk.CTkSwitch(self, text = text, variable = var, button_color = BLUE, fg_color = SLIDER_BG)
             switch.pack(side = 'left', expand = True, fill = 'both', padx = 5, pady = 5)
 
-class DropDownPanel(ctk.CTkOptionMenu):
+class DropDownPanel(ctk.CTkOptionMenu):    
     def __init__(self, parent, data_vars, options):
         super().__init__(parent, 
                          variable = data_vars, 
@@ -60,3 +60,22 @@ class DropDownPanel(ctk.CTkOptionMenu):
                          dropdown_fg_color = DROPDOWN_MENU_COLOR)
         
         self.pack(fill = 'both', pady = 4)
+
+class FileNamePanel(Panel):
+    def __init__(self, parent, name_string, file_string):
+        super().__init__(parent)
+
+        self.name_string= name_string
+        self.file_string = file_string
+        ctk.CTkEntry(self, textvariable = self.name_string).pack(fill = 'x', padx = 20, pady = 5)
+
+
+class RevertButton(ctk.CTkButton): #! reverts values to 0
+    def __init__(self, parent, *args):
+        super().__init__(parent, text = 'Revert', command = self.reset)
+        self.pack(side = 'bottom', pady = 10)
+        self.args = args
+
+    def reset(self):
+        for vars, value in self.args:
+            vars.set(value)

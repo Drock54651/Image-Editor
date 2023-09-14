@@ -55,7 +55,7 @@ class App(ctk.CTk):
             'effect': ctk.StringVar(value = 'Effects')
         }
 
-        #* TRACING
+        #* TRACING tracks if any of the vars above are changed
         
         #TODO: apply trace to all variables using a single for loop
         combined_vars = list(self.pos_vars.values()) + list(self.color_vars.values()) + list(self.effect_vars.values()) #! converting dictionaries into lists and concating the lists into 1
@@ -103,7 +103,7 @@ class App(ctk.CTk):
             self.image = ImageOps.invert(self.image)
             # self.image = self.image.convert('1')
 
-        #* BLURE AND CONTRAST
+        #* BLUR AND CONTRAST
         if self.effect_vars['blur'].get() != BLUR_DEFAULT:
             self.image = self.image.filter(ImageFilter.GaussianBlur(self.effect_vars['blur'].get()))
 

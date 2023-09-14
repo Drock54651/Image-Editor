@@ -18,6 +18,7 @@ class Menu(ctk.CTkTabview):
         PositionFrame(self.tab('Position'), pos_vars,) #! attaches the frame to the position tab when clicked on
         ColorFrame(self.tab('Color'), color_vars) #! attaches the frame to the position tab when clicked 
         EffectFrame(self.tab('Effect'), effect_vars)
+        ExportFrame(self.tab('Export'))
         
 
 class PositionFrame(ctk.CTkFrame):
@@ -61,13 +62,14 @@ class EffectFrame(ctk.CTkFrame):
                      (effect_vars['contrast'], CONTRAST_DEFAULT),
                      (effect_vars['effect'], EFFECT_OPTIONS[0]))
 
+class ExportFrame(ctk.CTkFrame):
+    def __init__(self, parent):
+            super().__init__(parent, fg_color = 'transparent')
+            self.pack(expand = True, fill = 'both')
 
-class RevertButton(ctk.CTkButton): #! reverts values to 0
-    def __init__(self, parent, *args):
-        super().__init__(parent, text = 'Revert', command = self.reset)
-        self.pack(side = 'bottom', pady = 10)
-        self.args = args
+            #* DATA
+            self.name_string = ctk.StringVar()
+            self.file_string = ctk.StringVar(value = 'jpg')
 
-    def reset(self):
-        for vars, value in self.args:
-            vars.set(value)
+            #* WIDGETS 
+            FileNamePanel(self, self.name_string, self.file_string)
