@@ -3,7 +3,7 @@ from panel import *
 
 
 class Menu(ctk.CTkTabview): #! contains the tabs
-    def __init__(self, parent, pos_vars, color_vars, effect_vars):
+    def __init__(self, parent, pos_vars, color_vars, effect_vars, export_image):
         super().__init__(parent)
 
         self.grid(row = 0 , column = 0, sticky = 'news', pady = 10, padx = 10)
@@ -18,7 +18,7 @@ class Menu(ctk.CTkTabview): #! contains the tabs
         PositionFrame(self.tab('Position'), pos_vars,) #! attaches the frame to the position tab when clicked on
         ColorFrame(self.tab('Color'), color_vars) #! attaches the frame to the position tab when clicked 
         EffectFrame(self.tab('Effect'), effect_vars)
-        ExportFrame(self.tab('Export'))
+        ExportFrame(self.tab('Export'), export_image)
         
 
 class PositionFrame(ctk.CTkFrame):
@@ -63,7 +63,7 @@ class EffectFrame(ctk.CTkFrame):
                      (effect_vars['effect'], EFFECT_OPTIONS[0]))
 
 class ExportFrame(ctk.CTkFrame):
-    def __init__(self, parent):
+    def __init__(self, parent, export_image):
             super().__init__(parent, fg_color = 'transparent')
             self.pack(expand = True, fill = 'both')
 
@@ -71,9 +71,11 @@ class ExportFrame(ctk.CTkFrame):
             self.name_string = ctk.StringVar()
             self.file_string = ctk.StringVar(value = 'jpg')
             self.path_string = ctk.StringVar()
+
             #* WIDGETS 
             FileNamePanel(self, self.name_string, self.file_string)
             FilePathPanel(self, self.path_string)
+            SaveButton(self, export_image, self.name_string, self.file_string, self.path_string)
 
 class RevertButton(ctk.CTkButton): #! reverts values to 0
     def __init__(self, parent, *args):

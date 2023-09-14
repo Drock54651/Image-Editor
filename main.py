@@ -119,7 +119,7 @@ class App(ctk.CTk):
 
 
         
-
+        self.image.convert('RGB')
         self.place_image()
 
     def import_image(self, path): #! imports image, get ratios, and calls the Menu class
@@ -134,8 +134,8 @@ class App(ctk.CTk):
         self.image_output = ImageOutput(self, self.resize_image) #! actually shows the image on canvas
         self.close_button = CloseOutput(self, self.close_edit)
 
-        self.menu = Menu(self, self.pos_vars, self.color_vars, self.effect_vars) #! left side menu
-    
+        self.menu = Menu(self, self.pos_vars, self.color_vars, self.effect_vars, self.export_image) #! left side menu
+
     def close_edit(self): #! closes everything and adds option to import image again
         #TODO: hide image and close the button
         #TODO: recreate the import button
@@ -172,6 +172,9 @@ class App(ctk.CTk):
         self.image_tk = ImageTk.PhotoImage(resized_image)
         self.image_output.create_image(self.canvas_width / 2, self.canvas_height / 2, image = self.image_tk ) #! centers image
         
+    def export_image(self, name, file, path): #! this function is passed to menu -> exportPanel -> SaveButton
+        export_string = f'{path}/{name}.{file}'
+        self.image.save(export_string)
 
 
 
